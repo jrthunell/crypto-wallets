@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/jrthunell/crypto-wallets#readme",
   "dependencies": {
+    "coininfo": "^4.3.0",
     "coinkey": "^1.0.0",
     "ethereumjs-wallet": "^0.6.3"
   }

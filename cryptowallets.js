@@ -6,6 +6,8 @@ module.exports = {
 				return this.generateBitcoinWallet();
 			case "ETH":
 				return this.generateEthereumWallet();
+			case "LTC":
+				return this.generateLitecoinWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -22,5 +24,13 @@ module.exports = {
 		var wallet = CoinKey.createRandom();
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
-	}
+	},
+	
+	generateLitecoinWallet: function (){
+		var CoinKey = require('coinkey');
+		var ci = require('coininfo')
+		var wallet = CoinKey.createRandom(ci('LTC').versions);
+		
+		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
 }
