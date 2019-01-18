@@ -1,0 +1,30 @@
+{
+  "name": "crypto-wallets",
+  "version": "0.1.0",
+  "description": "Simple cryptocurrency wallet generator for javascript",
+  "main": "cryptowallets.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrthunell/crypto-wallets.git"
+  },
+  "keywords": [
+    "Crypto",
+    "Cryptocurrency",
+    "Wallet",
+    "Wallets",
+    "Bitcoin",
+    "Ethereum",
+    "Litecoin"
+  ],
+  "author": "Jeremy Thunell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrthunell/crypto-wallets/issues"
+  },
+  "homepage": "https://github.com/jrthunell/crypto-wallets#readme",
+  "dependencies": {
+    "coinkey": "^1.0.0",
+    "ethereumjs-wallet": "^0.6.3"
+  }
+}
