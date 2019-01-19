@@ -13,6 +13,11 @@ console.log("Ethereum Private Key: \n" + ethWallet.privateKey);
 console.log("\n");
 
 ltcWallet = cw.generateWallet("LTC");
-console.log("Litcoin Public Address: \n" + ltcWallet.address);
-console.log("Litcoin Private Key: \n" + ltcWallet.privateKey);
+console.log("Litecoin Public Address: \n" + ltcWallet.address);
+console.log("Litecoin Private Key: \n" + ltcWallet.privateKey);
+console.log("\n");
+
+dogeWallet = cw.generateWallet("DOGE");
+console.log("Dogecoin Public Address: \n" + dogeWallet.address);
+console.log("Dogecoin Private Key: \n" + dogeWallet.privateKey);
 console.log("\n");

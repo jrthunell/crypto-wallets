@@ -8,6 +8,8 @@ module.exports = {
 				return this.generateEthereumWallet();
 			case "LTC":
 				return this.generateLitecoinWallet();
+			case "DOGE":
+				return this.generateDogecoinWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -30,6 +32,14 @@ module.exports = {
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('LTC').versions);
+		
+		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+	
+	generateDogecoinWallet: function (){
+		var CoinKey = require('coinkey');
+		var ci = require('coininfo')
+		var wallet = CoinKey.createRandom(ci('DOGE').versions);
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
