@@ -14,6 +14,8 @@ module.exports = {
 				return this.generateNamecoinWallet();
 			case "PPC":
 				return this.generatePeercoinWallet();
+			case "XMR":
+				return this.generateMoneroWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -62,5 +64,30 @@ module.exports = {
 		var wallet = CoinKey.createRandom(ci('PPC').versions);
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+		
+	
+	generateMoneroWallet: async function (){
+		var wallet;
+		var log = console.log;
+		var err = console.error;
+		var warn = console.warn;
+		// mute mymonero
+		console.log = function(){};
+		console.error = function(){};
+		console.warn = function(){};
+		var synced = false;
+		
+		await require("mymonero-core-js/monero_utils/MyMoneroCoreBridge")({}).then(function(coreBridge_instance) { 
+			var res = coreBridge_instance.newly_created_wallet("english", 0);
+			wallet = {privateKey: res.mnemonic_string, address: res.address_string};
+			synced = true;
+		})
+		while(!synced);
+		// unmute
+		console.log = log;
+		console.error = err;
+		console.warn = warn;
+		return wallet;
 	},
 }

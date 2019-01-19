@@ -31,3 +31,9 @@ ppcWallet = cw.generateWallet("PPC");
 console.log("Peercoin Public Address: \n" + ppcWallet.address);
 console.log("Peercoin Private Key: \n" + ppcWallet.privateKey);
 console.log("\n");
+
+xmrWallet = cw.generateWallet("XMR").then(function(xmrWallet){
+console.log("Monero Public Address: \n" + xmrWallet.address);
+console.log("Monero Private Key: \n" + xmrWallet.privateKey);
+console.log("\n");
+});
