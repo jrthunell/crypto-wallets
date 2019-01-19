@@ -12,6 +12,8 @@ module.exports = {
 				return this.generateDogecoinWallet();
 			case "NMC":
 				return this.generateNamecoinWallet();
+			case "PPC":
+				return this.generatePeercoinWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -46,11 +48,18 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
-	
 	generateNamecoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('NMC').versions);
+		
+		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+	
+	generatePeercoinWallet: function (){
+		var CoinKey = require('coinkey');
+		var ci = require('coininfo')
+		var wallet = CoinKey.createRandom(ci('PPC').versions);
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
