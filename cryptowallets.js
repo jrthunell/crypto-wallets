@@ -10,6 +10,8 @@ module.exports = {
 				return this.generateLitecoinWallet();
 			case "DOGE":
 				return this.generateDogecoinWallet();
+			case "NMC":
+				return this.generateNamecoinWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -40,6 +42,15 @@ module.exports = {
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('DOGE').versions);
+		
+		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+	
+	
+	generateNamecoinWallet: function (){
+		var CoinKey = require('coinkey');
+		var ci = require('coininfo')
+		var wallet = CoinKey.createRandom(ci('NMC').versions);
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},

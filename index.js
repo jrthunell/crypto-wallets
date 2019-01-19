@@ -21,3 +21,8 @@ dogeWallet = cw.generateWallet("DOGE");
 console.log("Dogecoin Public Address: \n" + dogeWallet.address);
 console.log("Dogecoin Private Key: \n" + dogeWallet.privateKey);
 console.log("\n");
+
+nmcWallet = cw.generateWallet("DOGE");
+console.log("Namecoin Public Address: \n" + nmcWallet.address);
+console.log("Namecoin Private Key: \n" + nmcWallet.privateKey);
+console.log("\n");
