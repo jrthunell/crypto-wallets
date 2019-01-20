@@ -28,3 +28,13 @@ var ethWallet = cw.generateWallet('ETH');
 console.log("Address: " + ethWallet.address);
 console.log("Private Key: " + ethWallet.privateKey);
 ```
+
+##### Example: Generating Monero Wallet
+Note: the generateWallet("XMR") and generateMoneroWallet functions are both asynchronous and return a promise, unlike the other currencies.
+```
+var cw = require('crypto-wallets');
+cw.generateWallet('XMR').then(function(moneroWallet){
+	console.log("Address: " + moneroWallet.address);
+	console.log("Private Key: " + moneroWallet.privateKey);
+});
+```
