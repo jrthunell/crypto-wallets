@@ -1,5 +1,13 @@
 module.exports = {
 
+	/**
+	*	Takes a string of a currency code
+	*
+	*	Returns a JavaScript object {privateKey, address}.
+	*
+	*	Note: For XMR (Monero), returns a Promise object
+	* 	TODO: Make XMR synchronous
+	*/
 	generateWallet: function(currency){
 		switch(currency.toUpperCase()){
 			case "BTC":
@@ -21,12 +29,18 @@ module.exports = {
 		}
 	},
 
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generateEthereumWallet: function (){
 		var Wallet = require('ethereumjs-wallet');
 		const wallet = Wallet.generate();
 		return {privateKey: wallet.getPrivateKeyString(), address: wallet.getAddressString()}
 	},
 
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generateBitcoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var wallet = CoinKey.createRandom();
@@ -34,6 +48,9 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generateLitecoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
@@ -42,6 +59,9 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generateDogecoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
@@ -50,6 +70,9 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generateNamecoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
@@ -58,6 +81,9 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
+	/**
+	*	Returns an object with properties {privateKey, address}
+	*/
 	generatePeercoinWallet: function (){
 		var CoinKey = require('coinkey');
 		var ci = require('coininfo')
@@ -67,6 +93,9 @@ module.exports = {
 	},
 		
 	
+	/**
+	*	Returns a promise for an object with properties {privateKey, address}
+	*/
 	generateMoneroWallet: async function (){
 		var wallet;
 		var log = console.log;
