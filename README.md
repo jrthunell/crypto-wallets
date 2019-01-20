@@ -2,13 +2,13 @@
 Javascript/Node library for generating cryptocurrency addresses and private keys.
 
 #### Supported Currencies:
-Bitcoin (BTC)
-Dogecoin (DOGE)
-Ethereum (ETH)
-Litecoin (LTC)
-Namecoin (NMC)
-Peercoin (PPC)
-Monero (XMR)
+- Bitcoin (BTC)
+- Dogecoin (DOGE)
+- Ethereum (ETH)
+- Litecoin (LTC)
+- Namecoin (NMC)
+- Peercoin (PPC)
+- Monero (XMR)
 
 #### Usage
 Install crypto-wallets with `npm install --save crypto-wallets`
