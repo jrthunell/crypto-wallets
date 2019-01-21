@@ -38,3 +38,16 @@ cw.generateWallet('XMR').then(function(moneroWallet){
 	console.log("Private Key: " + moneroWallet.privateKey);
 });
 ```
+
+
+### Security
+This library uses other third party libraries to generate the cryptocurrency addresses. So this library is secure if you trust the other libraries.
+
+The libraries used are:
+- Bitcoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Dogecoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Ethereum: [ethereumjs-wallet](https://www.npmjs.com/package/ethereumjs-wallet)
+- Litecoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Namecoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Peercoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Monero: [mymonero](https://github.com/mymonero/mymonero-core-js)
