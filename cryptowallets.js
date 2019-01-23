@@ -94,26 +94,36 @@ module.exports = {
 		
 	
 	/**
+	*	Private function that initializes a singleton of the MyMoneroCoreBridge class.
+	*/
+	_initMonero: async function(){
+		if(this.myMonero != undefined)
+			return this.myMonero;
+		else {
+			this.myMonero = await require("mymonero-core-js/monero_utils/MyMoneroCoreBridge")({})
+			return this.myMonero;
+		}
+	},
+	_myMonero: undefined,
+	/**
 	*	Returns a promise for an object with properties {privateKey, address}
 	*/
 	generateMoneroWallet: async function (){
 		var wallet;
+		
+		// mute mymonero
 		var log = console.log;
 		var err = console.error;
 		var warn = console.warn;
-		// mute mymonero
 		console.log = function(){};
 		console.error = function(){};
 		console.warn = function(){};
-		var synced = false;
 		
-		await require("mymonero-core-js/monero_utils/MyMoneroCoreBridge")({}).then(function(coreBridge_instance) { 
-			var res = coreBridge_instance.newly_created_wallet("english", 0);
-			wallet = {privateKey: res.mnemonic_string, address: res.address_string};
-			synced = true;
-		})
-		while(!synced);
-		// unmute
+		var myMonero = await this._initMonero();
+		var res = myMonero.newly_created_wallet("english", 0);
+		wallet = {privateKey: res.mnemonic_string, address: res.address_string};
+				
+		// unmute mymonero
 		console.log = log;
 		console.error = err;
 		console.warn = warn;
