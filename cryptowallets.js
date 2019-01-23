@@ -1,5 +1,11 @@
 module.exports = {
 
+	/*******************
+	*
+	*	PUBLIC FIELDS
+	*
+	********************/
+
 	/**
 	*	Takes a string of a currency code
 	*
@@ -92,19 +98,6 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 		
-	
-	/**
-	*	Private function that initializes a singleton of the MyMoneroCoreBridge class.
-	*/
-	_initMonero: async function(){
-		if(this.myMonero != undefined)
-			return this.myMonero;
-		else {
-			this.myMonero = await require("mymonero-core-js/monero_utils/MyMoneroCoreBridge")({})
-			return this.myMonero;
-		}
-	},
-	_myMonero: undefined,
 	/**
 	*	Returns a promise for an object with properties {privateKey, address}
 	*/
@@ -129,4 +122,23 @@ module.exports = {
 		console.warn = warn;
 		return wallet;
 	},
+	
+	/*******************
+	*
+	*	PRIVATE FIELDS!
+	*	DO NOT USE THESE!
+	*
+	********************/
+	/**
+	*	Private function that initializes a singleton of the MyMoneroCoreBridge class.
+	*/
+	_initMonero: async function(){
+		if(this.myMonero != undefined)
+			return this.myMonero;
+		else {
+			this.myMonero = await require("mymonero-core-js/monero_utils/MyMoneroCoreBridge")({})
+			return this.myMonero;
+		}
+	},
+	_myMonero: undefined,
 }

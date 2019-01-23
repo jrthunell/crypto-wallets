@@ -2,7 +2,12 @@
 
 // grab command line arguments
 const [,, ...args] = process.argv;
+
+// import cryptowallets library
 const cw = require('./cryptowallets');
+
+// set console.log max array size to unlimited
+require('util').inspect.defaultOptions.maxArrayLength = null;
 
 function generateNAddresses(currency, n){
 	var wallets = [];
@@ -23,10 +28,8 @@ async function generateNMoneroAddresses(n){
 
 switch(args[0]){
 	case "generate":
-	
 		if(args.length < 2){
 			console.log("Usage: generate <currency> [number]");
-			
 			break;
 		}
 		if(args[1].toLowerCase() == "xmr"){
