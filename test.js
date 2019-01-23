@@ -1,7 +1,6 @@
 var cw = require('./cryptowallets');
 var assert = require('assert');
-var cli = require('./cli.js');
-const NUM_TESTS = 25;
+const NUM_TESTS = 10;
 
 // BTC Tests
 for(var i = 0; i < NUM_TESTS; i++){
