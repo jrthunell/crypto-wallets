@@ -43,7 +43,15 @@ module.exports = {
 		const wallet = Wallet.generate();
 		return {privateKey: wallet.getPrivateKeyString(), address: wallet.getAddressString()}
 	},
-
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyEthereumPrivateKey(privateKey, address){
+		var eth = require('ethereumjs-wallet');
+		var wallet = eth.fromPrivateKey(new Buffer(privateKey.substring(2), "hex"));
+		return wallet.getAddressString() == address;
+	},
 	/**
 	*	Returns an object with properties {privateKey, address}
 	*/
@@ -52,6 +60,15 @@ module.exports = {
 		var wallet = CoinKey.createRandom();
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyBitcoinPrivateKey(privateKey, address){
+		var CoinKey = require('coinkey');
+		var wallet = CoinKey.fromWif(privateKey);
+		return wallet.publicAddress == address;
 	},
 	
 	/**
@@ -66,6 +83,15 @@ module.exports = {
 	},
 	
 	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyLitecoinPrivateKey(privateKey, address){
+		var CoinKey = require('coinkey');
+		var wallet = CoinKey.fromWif(privateKey);
+		return wallet.publicAddress == address;
+	},
+	
+	/**
 	*	Returns an object with properties {privateKey, address}
 	*/
 	generateDogecoinWallet: function (){
@@ -74,6 +100,15 @@ module.exports = {
 		var wallet = CoinKey.createRandom(ci('DOGE').versions);
 		
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+	},
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyDogecoinPrivateKey(privateKey, address){
+		var CoinKey = require('coinkey');
+		var wallet = CoinKey.fromWif(privateKey);
+		return wallet.publicAddress == address;
 	},
 	
 	/**
@@ -87,6 +122,16 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyNamecoinPrivateKey(privateKey, address){
+		var CoinKey = require('coinkey');
+		var wallet = CoinKey.fromWif(privateKey);
+		return wallet.publicAddress == address;
+	},
+	
 	/**
 	*	Returns an object with properties {privateKey, address}
 	*/
@@ -98,6 +143,16 @@ module.exports = {
 		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 		
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyPeercoinPrivateKey(privateKey, address){
+		var CoinKey = require('coinkey');
+		var wallet = CoinKey.fromWif(privateKey);
+		return wallet.publicAddress == address;
+	},
+	
 	/**
 	*	Returns a promise for an object with properties {privateKey, address}
 	*/
@@ -123,6 +178,16 @@ module.exports = {
 		return wallet;
 	},
 	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyMoneroPrivateKey: async function(privateKey, address){
+		var myMonero = await this._initMonero();
+		var wallet = myMonero.seed_and_keys_from_mnemonic(privateKey, 0);
+		return wallet.address_string == address;
+	},
+	
+	
 	/*******************
 	*
 	*	PRIVATE FIELDS!
@@ -133,6 +198,7 @@ module.exports = {
 	*	Private function that initializes a singleton of the MyMoneroCoreBridge class.
 	*/
 	_initMonero: async function(){
+		// Initialize mymonero if not already initialized
 		if(this.myMonero != undefined)
 			return this.myMonero;
 		else {

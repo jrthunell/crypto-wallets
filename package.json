@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "description": "Simple cryptocurrency wallet generator for javascript",
   "main": "cryptowallets.js",
-  "scripts": {},
+  "scripts": {
+	"test": "node ./test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrthunell/crypto-wallets.git"
