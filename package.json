@@ -28,5 +28,8 @@
     "coinkey": "^1.0.0",
     "ethereumjs-wallet": "^0.6.3",
     "mymonero-core-js": "git+https://github.com/mymonero/mymonero-core-js.git"
+  },
+  "bin": {
+    "crypto-wallets": "./cli.js"
   }
 }
