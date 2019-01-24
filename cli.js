@@ -26,21 +26,26 @@ async function generateNMoneroAddresses(n){
 	return wallets;
 }
 
-switch(args[0]){
-	case "generate":
-		if(args.length < 2){
-			console.log("Usage: generate <currency> [number]");
-			break;
+module.exports = {
+	parseArgs(args){
+		switch(args[0]){
+			case "generate":
+				if(args.length < 2){
+					console.log("Usage: generate <currency> [number]");
+					break;
+				}
+				if(args[1].toLowerCase() == "xmr"){
+					generateNMoneroAddresses((args.length > 2)? args[2] : 1).then(function(wallets){
+						console.log(wallets);
+					});
+					
+					break;
+				}
+				console.log(generateNAddresses(args[1], (args.length > 2)? args[2] : 1));
+				break;
+			default:
+				console.log("unknown command " + args[0]);
 		}
-		if(args[1].toLowerCase() == "xmr"){
-			generateNMoneroAddresses((args.length > 2)? args[2] : 1).then(function(wallets){
-				console.log(wallets);
-			});
-			
-			break;
-		}
-		console.log(generateNAddresses(args[1], (args.length > 2)? args[2] : 1));
-		break;
-	default:
-		console.log("unknown command " + args[0]);
+	}
 }
+module.exports.parseArgs(args);
