@@ -34,6 +34,30 @@ module.exports = {
 				console.log("Unsupported currency: " + currency);
 		}
 	},
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address for the given currency.
+	*/
+	verifyPrivateKey(currency, privateKey, address){
+		switch(currency.toUpperCase()){
+			case "BTC":
+				return this.verifyBitcoinPrivateKey(privateKey, address);
+			case "ETH":
+				return this.verifyEthereumPrivateKey(privateKey, address);
+			case "LTC":
+				return this.verifyLitecoinPrivateKey(privateKey, address);
+			case "DOGE":
+				return this.verifyDogecoinPrivateKey(privateKey, address);
+			case "NMC":
+				return this.verifyNamecoinPrivateKey(privateKey, address);
+			case "PPC":
+				return this.verifyPeercoinPrivateKey(privateKey, address);
+			case "XMR":
+				return this.verifyMoneroPrivateKey(privateKey, address);
+			default: 
+				console.log("Unsupported currency: " + currency);
+		}
+	},
 
 	/**
 	*	Returns an object with properties {privateKey, address}
@@ -41,7 +65,7 @@ module.exports = {
 	generateEthereumWallet: function (){
 		var Wallet = require('ethereumjs-wallet');
 		const wallet = Wallet.generate();
-		return {privateKey: wallet.getPrivateKeyString(), address: wallet.getAddressString()}
+		return {currency: "ETH", privateKey: wallet.getPrivateKeyString(), address: wallet.getAddressString()}
 	},
 	
 	/**
@@ -59,7 +83,7 @@ module.exports = {
 		var CoinKey = require('coinkey');
 		var wallet = CoinKey.createRandom();
 		
-		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+		return {currency: "BTC", privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
 	/**
@@ -79,7 +103,7 @@ module.exports = {
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('LTC').versions);
 		
-		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+		return {currency: "LTC", privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
 	/**
@@ -99,7 +123,7 @@ module.exports = {
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('DOGE').versions);
 		
-		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+		return {currency: "DOGE", privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
 	/**
@@ -119,7 +143,7 @@ module.exports = {
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('NMC').versions);
 		
-		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+		return {currency: "NMC", privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 	
 	
@@ -140,7 +164,7 @@ module.exports = {
 		var ci = require('coininfo')
 		var wallet = CoinKey.createRandom(ci('PPC').versions);
 		
-		return {privateKey: wallet.privateWif, address: wallet.publicAddress}
+		return {currency: "PPC", privateKey: wallet.privateWif, address: wallet.publicAddress}
 	},
 		
 	
@@ -169,7 +193,7 @@ module.exports = {
 		
 		var myMonero = await this._initMonero();
 		var res = myMonero.newly_created_wallet("english", 0);
-		wallet = {privateKey: res.mnemonic_string, address: res.address_string};
+		wallet = {currency: "XMR", privateKey: res.mnemonic_string, address: res.address_string};
 				
 		// unmute mymonero
 		console.log = log;
