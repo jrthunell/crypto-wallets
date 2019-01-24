@@ -9,6 +9,13 @@ for(var i = 0; i < NUM_TESTS; i++){
 }
 console.log("BTC Tests Passed");
 
+// BCH Tests
+for(var i = 0; i < NUM_TESTS; i++){
+	var wallet = cw.generateWallet("BCH");
+	assert(cw.verifyBitcoinCashPrivateKey(wallet.privateKey, wallet.address), "BCH Test Failed");
+}
+console.log("BCH Tests Passed");
+
 // ETH Tests
 for(var i = 0; i < NUM_TESTS; i++){
 	var wallet = cw.generateWallet("ETH");
@@ -79,6 +86,11 @@ setTimeout(function(){
 	assert.equal(consoleOutput.length, 1);
 	assert.equal(consoleOutput[0].currency.toUpperCase(), "LTC");
 	assert(cw.verifyPrivateKey(consoleOutput[0].currency, consoleOutput[0].privateKey, consoleOutput[0].address));
+	
+	cli.parseArgs(["generate", "bCh", 8]);
+	assert.equal(consoleOutput.length, 8);
+	assert.equal(consoleOutput[2].currency.toUpperCase(), "BCH");
+	assert(cw.verifyPrivateKey(consoleOutput[7].currency, consoleOutput[6].privateKey, consoleOutput[6].address));
 	
 	cli.parseArgs(["generate", "doge", 2]);
 	assert.equal(consoleOutput.length, 2);

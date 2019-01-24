@@ -9,7 +9,7 @@ module.exports = {
 	/**
 	*	Takes a string of a currency code
 	*
-	*	Returns a JavaScript object {privateKey, address}.
+	*	Returns a JavaScript object {currency, privateKey, address}.
 	*
 	*	Note: For XMR (Monero), returns a Promise object
 	* 	TODO: Make XMR synchronous
@@ -18,6 +18,8 @@ module.exports = {
 		switch(currency.toUpperCase()){
 			case "BTC":
 				return this.generateBitcoinWallet();
+			case "BCH":
+				return this.generateBitcoinCashWallet();
 			case "ETH":
 				return this.generateEthereumWallet();
 			case "LTC":
@@ -42,6 +44,8 @@ module.exports = {
 		switch(currency.toUpperCase()){
 			case "BTC":
 				return this.verifyBitcoinPrivateKey(privateKey, address);
+			case "BCH":
+				return this.verifyBitcoinCashPrivateKey(privateKey, address);
 			case "ETH":
 				return this.verifyEthereumPrivateKey(privateKey, address);
 			case "LTC":
@@ -60,7 +64,7 @@ module.exports = {
 	},
 
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateEthereumWallet: function (){
 		var Wallet = require('ethereumjs-wallet');
@@ -77,7 +81,7 @@ module.exports = {
 		return wallet.getAddressString() == address;
 	},
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateBitcoinWallet: function (){
 		var CoinKey = require('coinkey');
@@ -96,7 +100,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateLitecoinWallet: function (){
 		var CoinKey = require('coinkey');
@@ -116,7 +120,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateDogecoinWallet: function (){
 		var CoinKey = require('coinkey');
@@ -136,7 +140,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateNamecoinWallet: function (){
 		var CoinKey = require('coinkey');
@@ -157,7 +161,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns an object with properties {privateKey, address}
+	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generatePeercoinWallet: function (){
 		var CoinKey = require('coinkey');
@@ -178,7 +182,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns a promise for an object with properties {privateKey, address}
+	*	Returns a promise for an object with properties {currency, privateKey, address}
 	*/
 	generateMoneroWallet: async function (){
 		var wallet;
@@ -210,6 +214,27 @@ module.exports = {
 		var wallet = myMonero.seed_and_keys_from_mnemonic(privateKey, 0);
 		return wallet.address_string == address;
 	},
+	
+	/**
+	*	Returns an object with properties {currency, privateKey, address}
+	*/
+	generateBitcoinCashWallet: function (){
+		var bitcore = require('bitcore-lib-cash');
+		var privateKey = new bitcore.PrivateKey();
+		var address = privateKey.toAddress();
+		return {currency: "BCH", privateKey: privateKey.toWIF(), address: address.toString()}
+	},
+		
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyBitcoinCashPrivateKey(privateKey, address){
+		var bitcore = require('bitcore-lib-cash');
+		var newAddr = new bitcore.PrivateKey(privateKey).toAddress().toString();
+		return address == newAddr;
+	},
+	
 	
 	
 	/*******************
