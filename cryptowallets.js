@@ -75,10 +75,12 @@ module.exports = {
 	/**
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
-	verifyEthereumPrivateKey(privateKey, address){
-		var eth = require('ethereumjs-wallet');
-		var wallet = eth.fromPrivateKey(new Buffer(privateKey.substring(2), "hex"));
-		return wallet.getAddressString() == address;
+	verifyEthereumPrivateKey(privateKey, address){	
+		try{
+			var eth = require('ethereumjs-wallet');
+			var wallet = eth.fromPrivateKey(new Buffer(privateKey.substring(2), "hex"));
+			return wallet.getAddressString() == address;
+		}catch(err){return false;}
 	},
 	/**
 	*	Returns an object with properties {currency, privateKey, address}
@@ -94,9 +96,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyBitcoinPrivateKey(privateKey, address){
-		var CoinKey = require('coinkey');
-		var wallet = CoinKey.fromWif(privateKey);
-		return wallet.publicAddress == address;
+		try{
+			var CoinKey = require('coinkey');
+			var wallet = CoinKey.fromWif(privateKey);
+			return wallet.publicAddress == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -114,9 +118,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyLitecoinPrivateKey(privateKey, address){
-		var CoinKey = require('coinkey');
-		var wallet = CoinKey.fromWif(privateKey);
-		return wallet.publicAddress == address;
+		try{
+			var CoinKey = require('coinkey');
+			var wallet = CoinKey.fromWif(privateKey);
+			return wallet.publicAddress == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -134,9 +140,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyDogecoinPrivateKey(privateKey, address){
-		var CoinKey = require('coinkey');
-		var wallet = CoinKey.fromWif(privateKey);
-		return wallet.publicAddress == address;
+		try{
+			var CoinKey = require('coinkey');
+			var wallet = CoinKey.fromWif(privateKey);
+			return wallet.publicAddress == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -155,9 +163,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyNamecoinPrivateKey(privateKey, address){
-		var CoinKey = require('coinkey');
-		var wallet = CoinKey.fromWif(privateKey);
-		return wallet.publicAddress == address;
+		try{
+			var CoinKey = require('coinkey');
+			var wallet = CoinKey.fromWif(privateKey);
+			return wallet.publicAddress == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -176,9 +186,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyPeercoinPrivateKey(privateKey, address){
-		var CoinKey = require('coinkey');
-		var wallet = CoinKey.fromWif(privateKey);
-		return wallet.publicAddress == address;
+		try{
+			var CoinKey = require('coinkey');
+			var wallet = CoinKey.fromWif(privateKey);
+			return wallet.publicAddress == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -210,9 +222,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyMoneroPrivateKey: async function(privateKey, address){
-		var myMonero = await this._initMonero();
-		var wallet = myMonero.seed_and_keys_from_mnemonic(privateKey, 0);
-		return wallet.address_string == address;
+		try{
+			var myMonero = await this._initMonero();
+			var wallet = myMonero.seed_and_keys_from_mnemonic(privateKey, 0);
+			return wallet.address_string == address;
+		}catch(err){return false;}
 	},
 	
 	/**
@@ -230,9 +244,11 @@ module.exports = {
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyBitcoinCashPrivateKey(privateKey, address){
-		var bitcore = require('bitcore-lib-cash');
-		var newAddr = new bitcore.PrivateKey(privateKey).toAddress().toString();
-		return address == newAddr;
+		try{
+			var bitcore = require('bitcore-lib-cash');
+			var newAddr = new bitcore.PrivateKey(privateKey).toAddress().toString();
+			return address == newAddr;
+		}catch(err){return false;}
 	},
 	
 	
