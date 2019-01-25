@@ -29,7 +29,7 @@ async function generateNMoneroAddresses(n){
 module.exports = {
 	helpMsg: `
 Usage:
-crypto-wallet <command> [arguments]
+crypto-wallets <command> [arguments]
 	
 Commands:
 help, h, -help, --help: Prints this help message
