@@ -46,7 +46,7 @@ crypto-wallets can also be used in the command line.
 
 Commands:
 - `crypto-wallets generate <currency> [number]`
-Generates and prints JSON-formatted wallets in given currency. If [number] is not given, it defaults to 1.
+Generates and prints wallets in given currency. If [number] is not given, it defaults to 1.
 ```
 >crypto-wallets generate btc
 [ { currency: 'BTC',
