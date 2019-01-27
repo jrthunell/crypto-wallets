@@ -43,7 +43,7 @@ generate <currency> [number]:
 		
 verify <currency> <privateKey> <address>: 
     Verifies that the given privateKey corresponds to the given address in the given currency.`,
-	parseArgs(args){
+	parseArgs: async function(args){
 		switch(args[0]){
 			case "help":
 			case "h":
@@ -58,10 +58,7 @@ verify <currency> <privateKey> <address>:
 					break;
 				}
 				if(args[1].toLowerCase() == "xmr" || args[1].toLowerCase() == "iota"){
-					generateNAsyncAddresses(args[1], (args.length > 2)? args[2] : 1).then(function(wallets){
-						console.log(wallets);
-					});
-					
+					console.log(await generateNAsyncAddresses(args[1], (args.length > 2)? args[2] : 1));
 					break;
 				}
 				console.log(generateNAddresses(args[1], (args.length > 2)? args[2] : 1));
@@ -76,12 +73,12 @@ verify <currency> <privateKey> <address>:
 						if(res === true)
 							console.log("Success: The private key matches the address");
 						else if(res.then){ // if a promise is returned, resolve it
-							res.then(function(res){
-								if(res)
-									console.log("Success: The private key matches the address");
-								else
-									console.log("Failure: The private key does not match the address");
-							});
+							res = await res;
+							if(res)
+								console.log("Success: The private key matches the address");
+							else
+								console.log("Failure: The private key does not match the address");
+						
 						} else
 							console.log("Failure: The private key does not match the address");
 					}catch(err){
