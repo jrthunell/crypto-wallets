@@ -70,7 +70,7 @@ async function runTests(){
 	assert(!await cw.verifyIOTAPrivateKey("AVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
 			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 3 Failed"); // wrong private key
 	assert(!await cw.verifyIOTAPrivateKey("foobarbaz", "blahblahblah"), "IOTA Verify Test 4 Failed"); // random garbage
-			console.log("IOTA Tests Passed\n");
+			console.log("IOTA Tests Passed");
 
 
 	// NMC Tests

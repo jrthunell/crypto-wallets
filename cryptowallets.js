@@ -358,18 +358,12 @@ module.exports = {
 		if(this._iota != undefined)
 			return this._iota;
 		else {
-			// mute deprecation warning from iota library
-			var error = console.error;
-			console.error = function(){};
-			
 			// load and initialize library
 			var IOTA = require('iota.lib.js');
 			this._iota = new IOTA({
 				"host": null,
 				"port": null
 			});
-			// unmute
-			console.error = error;
 			return this._iota;
 		}
 	},
