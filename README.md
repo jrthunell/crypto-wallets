@@ -7,6 +7,7 @@ Javascript/Node library for generating cryptocurrency addresses and private keys
 - Bitcoin Cash (BCH)
 - Dogecoin (DOGE)
 - Ethereum (ETH)
+- IOTA (IOTA)
 - Litecoin (LTC)
 - Monero (XMR)
 - Namecoin (NMC)
@@ -32,7 +33,7 @@ console.log("Private Key: " + ethWallet.privateKey);
 ```
 
 ##### Example: Generating Monero Wallet
-Note: the generateWallet("XMR") and generateMoneroWallet functions are both asynchronous and return a promise, unlike the other currencies.
+Note: Generating Monero (XMR) and IOTA (IOTA) wallets are both asynchronous and return a promise, unlike the other currencies.
 ```
 var cw = require('crypto-wallets');
 cw.generateWallet('XMR').then(function(moneroWallet){
@@ -86,6 +87,7 @@ The libraries used are:
 - Bitcoin: [coinkey](https://www.npmjs.com/package/coinkey)
 - Bitcoin Cash: [bitcore-lib-cash](https://www.npmjs.com/package/bitcore-lib-cash)
 - Dogecoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- IOTA: [iota.lib.js](https://www.npmjs.com/package/iota.lib.js)
 - Ethereum: [ethereumjs-wallet](https://www.npmjs.com/package/ethereumjs-wallet)
 - Litecoin: [coinkey](https://www.npmjs.com/package/coinkey)
 - Namecoin: [coinkey](https://www.npmjs.com/package/coinkey)
