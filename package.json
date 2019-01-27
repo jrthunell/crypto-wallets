@@ -1,6 +1,6 @@
 {
   "name": "crypto-wallets",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Simple cryptocurrency wallet generator for javascript",
   "main": "cryptowallets.js",
   "scripts": {
@@ -26,14 +26,18 @@
     "Peercoin",
     "Namecoin",
     "Dogecoin",
+    "Tezos",
+    "IOTA",
     "BTC",
     "BCH",
     "ETH",
     "LTC",
     "XMR",
+    "XTZ",
     "PPC",
     "NMC",
-    "DOGE"
+    "DOGE",
+    "IOTA"
   ],
   "author": "Jeremy Thunell",
   "license": "MIT",

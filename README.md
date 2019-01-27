@@ -12,6 +12,7 @@ Javascript/Node library for generating cryptocurrency addresses and private keys
 - Monero (XMR)
 - Namecoin (NMC)
 - Peercoin (PPC)
+- Tezos (XTZ)
 
 ### Usage
 Install crypto-wallets with `npm install --save crypto-wallets`
@@ -87,9 +88,10 @@ The libraries used are:
 - Bitcoin: [coinkey](https://www.npmjs.com/package/coinkey)
 - Bitcoin Cash: [bitcore-lib-cash](https://www.npmjs.com/package/bitcore-lib-cash)
 - Dogecoin: [coinkey](https://www.npmjs.com/package/coinkey)
-- IOTA: [iota.lib.js](https://www.npmjs.com/package/iota.lib.js), seed is generated with [custom code](cryptowallets.js#L287) using Node's crypto library
 - Ethereum: [ethereumjs-wallet](https://www.npmjs.com/package/ethereumjs-wallet)
+- IOTA: [iota.lib.js](https://www.npmjs.com/package/iota.lib.js), seed is generated with [custom code](cryptowallets.js#L287) using Node's crypto library
 - Litecoin: [coinkey](https://www.npmjs.com/package/coinkey)
 - Namecoin: [coinkey](https://www.npmjs.com/package/coinkey)
 - Peercoin: [coinkey](https://www.npmjs.com/package/coinkey)
+- Tezos: [tezos-sign](https://www.npmjs.com/package/tezos-sign)
 - Monero: [mymonero](https://github.com/mymonero/mymonero-core-js)
