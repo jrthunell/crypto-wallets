@@ -263,20 +263,21 @@ module.exports = {
 	*	Returns an object with properties {currency, privateKey, address}
 	*/
 	generateTezosWallet: function (){
-		var tezos = require('tezos-wallet');
-		console.log(tezos);
-		throw "Not implemented";
+		var tezos = require('tezos-sign');
+		var wallet = tezos.generateKeysNoSeed();
+		return {currency: "XTZ", privateKey: wallet.sk, address: wallet.pkh}
 	},
-		
 	
 	/**
 	*	Returns true if the private key is the correct private key of the given address.
 	*/
 	verifyTezosPrivateKey(privateKey, address){
 		try{
-			var tezos = require('tezos-wallet');
-			console.log(tezos);
-			throw "Not implemented";
+			var tezos = require('tezos-sign');
+			var wallet = tezos.extractKeys(privateKey);
+			console.log(wallet)
+			console.log(address)
+			return wallet.pkh == address;
 		}catch(err){return false;}
 	},
 	

@@ -47,7 +47,8 @@
     "coinkey": "^1.0.0",
     "ethereumjs-wallet": "^0.6.3",
     "iota.lib.js": "^0.5.1",
-    "mymonero-core-js": "git+https://github.com/mymonero/mymonero-core-js.git"
+    "mymonero-core-js": "git+https://github.com/mymonero/mymonero-core-js.git",
+    "tezos-sign": "^1.4.1"
   },
   "bin": {
     "crypto-wallets": "./cli.js"
