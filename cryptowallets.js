@@ -293,13 +293,7 @@ module.exports = {
 			var n = buf.readUInt32BE(0) % 27;
 			privateKey += seedStr[n];
 		}
-		
-		const IOTA = require('iota.lib.js')
-
-		const iota = new IOTA({
-			"host": null,
-			"port": null
-		})
+		const iota = this._initIOTA();
 		var address = await new Promise(function(resolve, reject){
 			iota.api.getNewAddress(privateKey, {
 				index: 0,
@@ -318,11 +312,7 @@ module.exports = {
 	*/
 	verifyIOTAPrivateKey: async function(privateKey, address){
 		try{
-			const IOTA = require('iota.lib.js')
-			const iota = new IOTA({
-				"host": null,
-				"port": null
-			})
+			const iota = this._initIOTA();
 			var addr = await new Promise(function(resolve, reject){
 				iota.api.getNewAddress(privateKey, {
 					index: 0,
@@ -358,4 +348,30 @@ module.exports = {
 		}
 	},
 	_myMonero: undefined,
+	
+	
+	/**
+	*	Private function that initializes a singleton of the iota.lib.js IOTA class.
+	*/
+	_initIOTA: function(){
+		// Initialize iota if not already initialized
+		if(this._iota != undefined)
+			return this._iota;
+		else {
+			// mute deprecation warning from iota library
+			var error = console.error;
+			console.error = function(){};
+			
+			// load and initialize library
+			var IOTA = require('iota.lib.js');
+			this._iota = new IOTA({
+				"host": null,
+				"port": null
+			});
+			// unmute
+			console.error = error;
+			return this._iota;
+		}
+	},
+	_iota: undefined,
 }
