@@ -17,10 +17,10 @@ function generateNAddresses(currency, n){
 	return wallets;
 }
 
-async function generateNMoneroAddresses(n){
+async function generateNAsyncAddresses(currency, n){
 	var wallets = [];
 	for(var i = 0; i < n; i++){
-		var wallet = await cw.generateWallet("XMR")
+		var wallet = await cw.generateWallet(currency)
 		wallets.push(wallet);
 	}
 	return wallets;
@@ -57,8 +57,8 @@ verify <currency> <privateKey> <address>:
 					console.log("Usage: generate <currency> [number]");
 					break;
 				}
-				if(args[1].toLowerCase() == "xmr"){
-					generateNMoneroAddresses((args.length > 2)? args[2] : 1).then(function(wallets){
+				if(args[1].toLowerCase() == "xmr" || args[1].toLowerCase() == "iota"){
+					generateNAsyncAddresses(args[1], (args.length > 2)? args[2] : 1).then(function(wallets){
 						console.log(wallets);
 					});
 					

@@ -26,12 +26,16 @@ module.exports = {
 				return this.generateLitecoinWallet();
 			case "DOGE":
 				return this.generateDogecoinWallet();
+			case "IOTA":
+				return this.generateIOTAWallet();
 			case "NMC":
 				return this.generateNamecoinWallet();
 			case "PPC":
 				return this.generatePeercoinWallet();
 			case "XMR":
 				return this.generateMoneroWallet();
+			case "XTZ":
+				return this.generateTezosWallet();
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -52,12 +56,16 @@ module.exports = {
 				return this.verifyLitecoinPrivateKey(privateKey, address);
 			case "DOGE":
 				return this.verifyDogecoinPrivateKey(privateKey, address);
+			case "IOTA":
+				return this.verifyIOTAPrivateKey(privateKey, address);
 			case "NMC":
 				return this.verifyNamecoinPrivateKey(privateKey, address);
 			case "PPC":
 				return this.verifyPeercoinPrivateKey(privateKey, address);
 			case "XMR":
 				return this.verifyMoneroPrivateKey(privateKey, address);
+			case "XTZ":
+				return this.verifyTezosPrivateKey(privateKey, address);
 			default: 
 				console.log("Unsupported currency: " + currency);
 		}
@@ -250,6 +258,82 @@ module.exports = {
 			return address == newAddr;
 		}catch(err){return false;}
 	},
+	
+	/**
+	*	Returns an object with properties {currency, privateKey, address}
+	*/
+	generateTezosWallet: function (){
+		var tezos = require('tezos-wallet');
+		console.log(tezos);
+		throw "Not implemented";
+	},
+		
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyTezosPrivateKey(privateKey, address){
+		try{
+			var tezos = require('tezos-wallet');
+			console.log(tezos);
+			throw "Not implemented";
+		}catch(err){return false;}
+	},
+	
+	/**
+	*	Returns an object with properties {currency, privateKey, address}
+	*/
+	generateIOTAWallet: async function (){
+		const crypto = require("crypto");
+		const seedStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ9";
+		var privateKey = "";
+		while(privateKey.length < 81){
+			var n = crypto.randomBytes(4).readUInt32BE(0) % 27;
+			privateKey += seedStr[n];
+		}
+		
+		const IOTA = require('iota.lib.js')
+
+		const iota = new IOTA({
+			"host": null,
+			"port": null
+		})
+		var address = await new Promise(function(resolve, reject){
+			iota.api.getNewAddress(privateKey, {
+				index: 0,
+				checksum: true,
+				total: 1,
+				security: 2
+			}		
+			, function(err, addr){resolve(addr[0])});
+		});
+		return {privateKey: privateKey, address: address}
+	},
+		
+	
+	/**
+	*	Returns true if the private key is the correct private key of the given address.
+	*/
+	verifyIOTAPrivateKey: async function(privateKey, address){
+		try{
+			const IOTA = require('iota.lib.js')
+			const iota = new IOTA({
+				"host": null,
+				"port": null
+			})
+			var addr = await new Promise(function(resolve, reject){
+				iota.api.getNewAddress(privateKey, {
+					index: 0,
+					checksum: true,
+					total: 1,
+					security: 2
+				}		
+				, function(err, addr){resolve(addr[0])});
+			});
+			return address == addr;
+		}catch(err){return false;}
+	},
+	
 	
 	
 	
