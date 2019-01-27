@@ -57,6 +57,21 @@ async function runTests(){
 	assert(!cw.verifyDogecoinPrivateKey("Qr3L2AobP65VMhKxQhFjNQoEkHNrtXjnYVpTJmU1qHyjr7X2tzM8", "DDXKUuYWUREHod3B89ZcSRzGmmALYaoRFL"), "DOGE Verify Test 3 Failed"); // wrong private key
 	assert(!cw.verifyDogecoinPrivateKey("foobarbaz", "blahblahblah"), "DOGE Verify Test 4 Failed"); // random garbage
 	console.log("DOGE Tests Passed");
+	
+	// IOTA Tests
+	for(var i = 0; i < NUM_TESTS; i++){
+		var wallet = await cw.generateWallet("IOTA");
+		assert(cw.verifyIOTAPrivateKey(wallet.privateKey, wallet.address), "IOTA Test Failed");
+	}
+	assert(await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 1 Failed"); // correct
+	assert(!await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"APAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 2 Failed"); // wrong address
+	assert(!await cw.verifyIOTAPrivateKey("AVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 3 Failed"); // wrong private key
+	assert(!await cw.verifyIOTAPrivateKey("foobarbaz", "blahblahblah"), "IOTA Verify Test 4 Failed"); // random garbage
+			console.log("IOTA Tests Passed\n");
+
 
 	// NMC Tests
 	for(var i = 0; i < NUM_TESTS; i++){
@@ -94,7 +109,7 @@ async function runTests(){
 			"4AAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 3 Failed"); // wrong private key
 	assert(!await cw.verifyMoneroPrivateKey("foobarbaz", "blahblahblah"), "XMR Verify Test 4 Failed"); // random garbage
 			console.log("XMR Tests Passed\n");
-
+			
 	/**
 	CLI Tests
 	**/
@@ -144,6 +159,11 @@ async function runTests(){
 	await cli.parseArgs(["generate", "xmR", 6]);
 	assert.equal(consoleOutput.length, 6);
 	assert.equal(consoleOutput[3].currency.toUpperCase(), "XMR");
+	assert(cw.verifyPrivateKey(consoleOutput[5].currency, consoleOutput[2].privateKey, consoleOutput[2].address));
+	
+	await cli.parseArgs(["generate", "iOtA", 7]);
+	assert.equal(consoleOutput.length, 7);
+	assert.equal(consoleOutput[3].currency.toUpperCase(), "IOTA");
 	assert(cw.verifyPrivateKey(consoleOutput[5].currency, consoleOutput[2].privateKey, consoleOutput[2].address));
 	
 	// more CLI tests
@@ -225,6 +245,17 @@ async function runTests(){
 	await cli.parseArgs(['verify', 'xmr', 'acidic yacht cogs avoid shyness plotting mews nocturnal value vigilant tweezers oilfield girth dexterity does axle girth mime acidic rarest aunt juggled point python vigilant',
 		'45MuEyzAuoR8LMt8NwQCeViMA8T6WpZz24Txa14GwUVhdkC67eTyx9x5Yk2UouW9saevJ727PDCNCMiPjPn13XcwTDsECnA']) // private key doesn't match
 	assert.equal(consoleOutput, "Failure: The private key does not match the address", "Monero CLI Test 3 Failed");
+
+	
+	await cli.parseArgs(['verify', 'iota', 'WWG9RPUYNWWTLPXLHQDQVYRHUQGWBVNMQVR9KFODOJPAVGMSUBVVIDPDCIPHYGCJAWSHRTSXGFPNBJPFE',
+		'LCZHBSFIBOZQDV9OIQXHYNBFQYHNHHUVSPWSYGCSVYLWOAESSVCWBKBWUWZKRUQQDXDKKPZXOUWADHUX9GVJR9IMXW']) // matches
+	assert.equal(consoleOutput, "Success: The private key matches the address", "IOTA CLI Test 1 Failed");
+	await cli.parseArgs(['verify', 'iota', 'WWG9RPUYNWWTLPXLHQDQVYRHUQGWBVNMQVR9KFODOJPAVGMSUBVVIDPDCIPHYGCJAWSHRTSXGFPNBJPFE',
+		'ACZHBSFIBOZQDV9OIQXHYNBFQYHNHHUVSPWSYGCSVYLWOAESSVCWBKBWUWZKRUQQDXDKKPZXOUWADHUX9GVJR9IMXW']) // address doesn't match
+	assert.equal(consoleOutput, "Failure: The private key does not match the address", "IOTA CLI Test 2 Failed");
+	await cli.parseArgs(['verify', 'iota', 'AWG9RPUYNWWTLPXLHQDQVYRHUQGWBVNMQVR9KFODOJPAVGMSUBVVIDPDCIPHYGCJAWSHRTSXGFPNBJPFE',
+		'LCZHBSFIBOZQDV9OIQXHYNBFQYHNHHUVSPWSYGCSVYLWOAESSVCWBKBWUWZKRUQQDXDKKPZXOUWADHUX9GVJR9IMXW']) // private key doesn't match
+	assert.equal(consoleOutput, "Failure: The private key does not match the address", "IOTA CLI Test 3 Failed");
 	
 	log("CLI Tests Passed\n\nAll Tests Passed");
 	}catch(err){

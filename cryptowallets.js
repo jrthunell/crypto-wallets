@@ -287,8 +287,10 @@ module.exports = {
 		const crypto = require("crypto");
 		const seedStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ9";
 		var privateKey = "";
+		const buf = Buffer.alloc(4);
 		while(privateKey.length < 81){
-			var n = crypto.randomBytes(4).readUInt32BE(0) % 27;
+			crypto.randomFillSync(buf);
+			var n = buf.readUInt32BE(0) % 27;
 			privateKey += seedStr[n];
 		}
 		
@@ -307,9 +309,9 @@ module.exports = {
 			}		
 			, function(err, addr){resolve(addr[0])});
 		});
-		return {privateKey: privateKey, address: address}
+		return {currency: "IOTA", privateKey: privateKey, address: address}
 	},
-		
+	
 	
 	/**
 	*	Returns true if the private key is the correct private key of the given address.
