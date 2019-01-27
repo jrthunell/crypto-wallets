@@ -275,8 +275,6 @@ module.exports = {
 		try{
 			var tezos = require('tezos-sign');
 			var wallet = tezos.extractKeys(privateKey);
-			console.log(wallet)
-			console.log(address)
 			return wallet.pkh == address;
 		}catch(err){return false;}
 	},

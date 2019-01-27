@@ -1,6 +1,6 @@
 var cw = require('./cryptowallets');
 var assert = require('assert');
-const NUM_TESTS = 10;
+const NUM_TESTS = 5;
 
 async function runTests(){
 	// BTC Tests
@@ -108,8 +108,21 @@ async function runTests(){
 	assert(!await cw.verifyMoneroPrivateKey("mayor skydive karate gleeful ethics jaws amaze boat nabbing foggy owner asleep mayor whole jukebox bunch aside zero injury rotate yawning juicy annoyed batch gleeful",
 			"4AAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 3 Failed"); // wrong private key
 	assert(!await cw.verifyMoneroPrivateKey("foobarbaz", "blahblahblah"), "XMR Verify Test 4 Failed"); // random garbage
-			console.log("XMR Tests Passed\n");
+			console.log("XMR Tests Passed");
 			
+	// XTZ Tests
+	for(var i = 0; i < NUM_TESTS; i++){
+		var wallet = cw.generateWallet("XTZ");
+		assert(cw.verifyTezosPrivateKey(wallet.privateKey, wallet.address), "XTZ Test Failed");
+	}
+	assert(cw.verifyTezosPrivateKey("edskRpkjCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk",
+		"tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82"), "XTZ Verify Test 1 Failed"); // correct
+	assert(!cw.verifyTezosPrivateKey("edskRpkjCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk",
+		"tz1Tgc6i5cVC2qmc8Tc1iMZifC3jnQwDNP82"), "XTZ Verify Test 2 Failed"); // wrong address
+	assert(!cw.verifyTezosPrivateKey("edskRpkJCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk",
+		"tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82"), "XTZ Verify Test 3 Failed"); // wrong private key
+	assert(!cw.verifyTezosPrivateKey("foobarbaz", "blahblahblah"), "XTZ Verify Test 4 Failed"); // random garbage
+	console.log("XTZ Tests Passed\n");
 	/**
 	CLI Tests
 	**/
@@ -151,6 +164,11 @@ async function runTests(){
 	assert.equal(consoleOutput[3].currency.toUpperCase(), "ETH");
 	assert(cw.verifyPrivateKey(consoleOutput[2].currency, consoleOutput[1].privateKey, consoleOutput[1].address));
 	
+	cli.parseArgs(["generate", "xtz", 9]);
+	assert.equal(consoleOutput.length, 9);
+	assert.equal(consoleOutput[2].currency.toUpperCase(), "XTZ");
+	assert(cw.verifyPrivateKey(consoleOutput[8].currency, consoleOutput[5].privateKey, consoleOutput[5].address));
+	
 	cli.parseArgs(["generate", "NmC", 5]);
 	assert.equal(consoleOutput.length, 5);
 	assert.equal(consoleOutput[4].currency.toUpperCase(), "NMC");
@@ -161,10 +179,10 @@ async function runTests(){
 	assert.equal(consoleOutput[3].currency.toUpperCase(), "XMR");
 	assert(cw.verifyPrivateKey(consoleOutput[5].currency, consoleOutput[2].privateKey, consoleOutput[2].address));
 	
-	await cli.parseArgs(["generate", "iOtA", 7]);
-	assert.equal(consoleOutput.length, 7);
-	assert.equal(consoleOutput[3].currency.toUpperCase(), "IOTA");
-	assert(cw.verifyPrivateKey(consoleOutput[5].currency, consoleOutput[2].privateKey, consoleOutput[2].address));
+	await cli.parseArgs(["generate", "iOtA", 2]);
+	assert.equal(consoleOutput.length, 2);
+	assert.equal(consoleOutput[1].currency.toUpperCase(), "IOTA");
+	assert(cw.verifyPrivateKey(consoleOutput[1].currency, consoleOutput[0].privateKey, consoleOutput[0].address));
 	
 	// more CLI tests
 	// test help
@@ -235,6 +253,14 @@ async function runTests(){
 	cli.parseArgs(['verify', 'ppc', 'foobarbaz', 'blahblahblah']) // random garbage
 	assert.equal(consoleOutput, "Failure: The private key does not match the address");
 	
+	cli.parseArgs(['verify', 'xtz', 'edskRpkjCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk', 'tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82']) // matches
+	assert.equal(consoleOutput, "Success: The private key matches the address");
+	cli.parseArgs(['verify', 'xtz', 'edskRpkjCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk', 'tz1TGc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82']) // address doesn't match
+	assert.equal(consoleOutput, "Failure: The private key does not match the address");
+	cli.parseArgs(['verify', 'xtz', 'edskRpkJCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk', 'tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82']) // private key doesn't match
+	assert.equal(consoleOutput, "Failure: The private key does not match the address");
+	cli.parseArgs(['verify', 'xtz', 'foobarbaz', 'blahblahblah']) // random garbage
+	assert.equal(consoleOutput, "Failure: The private key does not match the address");
 	
 	await cli.parseArgs(['verify', 'xmr', 'excess yacht cogs avoid shyness plotting mews nocturnal value vigilant tweezers oilfield girth dexterity does axle girth mime acidic rarest aunt juggled point python vigilant',
 		'45MuEyzAuoR8LMt8NwQCeViMA8T6WpZz24Txa14GwUVhdkC67eTyx9x5Yk2UouW9saevJ727PDCNCMiPjPn13XcwTDsECnA']) // matches
