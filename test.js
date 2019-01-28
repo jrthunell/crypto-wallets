@@ -1,6 +1,6 @@
 var cw = require('./cryptowallets');
 var assert = require('assert');
-const NUM_TESTS = 5;
+const NUM_TESTS = 3;
 
 async function runTests(){
 	// BTC Tests
@@ -69,8 +69,14 @@ async function runTests(){
 			"APAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 2 Failed"); // wrong address
 	assert(!await cw.verifyIOTAPrivateKey("AVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
 			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 3 Failed"); // wrong private key
+	assert(await cw.verifyIOTAPrivateKey("N9ZASFSEDLVWRWBISHRKFAQFY9CVTD9ZELFAICGROOXWQYKFXJGKWYIAZZODALIDGRGUFTZCSXQBPBSPE",
+			"G9JHIDMJGUIIAENFSYKKGZMBDOADIW9UNAATVPVNGWFPIEPQITVSWXJJTDRPHTCJWUYERMGLVBOHYOXOCTDYYOEXPB"), "IOTA Verify Test 4 Failed"); // security level 1
+	assert(await cw.verifyIOTAPrivateKey("DAQ9JZZLIOTAMWKRBPQYEPXVPMMGZLBAYDYNOMPUPRSEKTBTBJRE9WWNCZUIGYLQDLYOFHXAZCTHRDYSY",
+			"XEP9KATHNKTIVNTRW9OIJDPFV9BWEWFHNUHBVCVTELJTDPBDHYBOMZXDDTF9PNVLVDFAQLQRIGKYNZHBCYYTMUPHU9"), "IOTA Verify Test 5 Failed"); // 4th address in seed generation
+	assert(await cw.verifyIOTAPrivateKey("WLYYH9GEA9KONPABRAEZUNJPCYSQKAWUQWSGTCJ9FHMVVVYFJZSLRGYCWPYN9XKIXGXIRUBFWVZNVVDHU",
+			"F9WZPZMRPHJCMETIMGHCTTOVPLQGHXAYHPJB9NU9TNRSMYJTYKHREER9DLVEML9QOCGCKUEIYBUQGDDHXFWJRDJTRY"), "IOTA Verify Test 6 Failed"); // security level 3 and 5th address in seed generation
 	assert(!await cw.verifyIOTAPrivateKey("foobarbaz", "blahblahblah"), "IOTA Verify Test 4 Failed"); // random garbage
-			console.log("IOTA Tests Passed");
+	console.log("IOTA Tests Passed");
 
 
 	// NMC Tests
@@ -108,7 +114,7 @@ async function runTests(){
 	assert(!await cw.verifyMoneroPrivateKey("mayor skydive karate gleeful ethics jaws amaze boat nabbing foggy owner asleep mayor whole jukebox bunch aside zero injury rotate yawning juicy annoyed batch gleeful",
 			"4AAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 3 Failed"); // wrong private key
 	assert(!await cw.verifyMoneroPrivateKey("foobarbaz", "blahblahblah"), "XMR Verify Test 4 Failed"); // random garbage
-			console.log("XMR Tests Passed");
+	console.log("XMR Tests Passed");
 			
 	// XTZ Tests
 	for(var i = 0; i < NUM_TESTS; i++){
@@ -282,6 +288,15 @@ async function runTests(){
 	await cli.parseArgs(['verify', 'iota', 'AWG9RPUYNWWTLPXLHQDQVYRHUQGWBVNMQVR9KFODOJPAVGMSUBVVIDPDCIPHYGCJAWSHRTSXGFPNBJPFE',
 		'LCZHBSFIBOZQDV9OIQXHYNBFQYHNHHUVSPWSYGCSVYLWOAESSVCWBKBWUWZKRUQQDXDKKPZXOUWADHUX9GVJR9IMXW']) // private key doesn't match
 	assert.equal(consoleOutput, "Failure: The private key does not match the address", "IOTA CLI Test 3 Failed");
+	await cli.parseArgs(['verify', 'iota', 'N9ZASFSEDLVWRWBISHRKFAQFY9CVTD9ZELFAICGROOXWQYKFXJGKWYIAZZODALIDGRGUFTZCSXQBPBSPE',
+		'G9JHIDMJGUIIAENFSYKKGZMBDOADIW9UNAATVPVNGWFPIEPQITVSWXJJTDRPHTCJWUYERMGLVBOHYOXOCTDYYOEXPB']) // security level 1
+	assert.equal(consoleOutput, "Success: The private key matches the address", "IOTA CLI Test 4 Failed");
+	await cli.parseArgs(['verify', 'iota', 'DAQ9JZZLIOTAMWKRBPQYEPXVPMMGZLBAYDYNOMPUPRSEKTBTBJRE9WWNCZUIGYLQDLYOFHXAZCTHRDYSY',
+		'XEP9KATHNKTIVNTRW9OIJDPFV9BWEWFHNUHBVCVTELJTDPBDHYBOMZXDDTF9PNVLVDFAQLQRIGKYNZHBCYYTMUPHU9']) // 4th address in seed generation
+	assert.equal(consoleOutput, "Success: The private key matches the address", "IOTA CLI Test 5 Failed");
+	await cli.parseArgs(['verify', 'iota', 'WLYYH9GEA9KONPABRAEZUNJPCYSQKAWUQWSGTCJ9FHMVVVYFJZSLRGYCWPYN9XKIXGXIRUBFWVZNVVDHU',
+		'F9WZPZMRPHJCMETIMGHCTTOVPLQGHXAYHPJB9NU9TNRSMYJTYKHREER9DLVEML9QOCGCKUEIYBUQGDDHXFWJRDJTRY']) // security level 3 and 5th address in seed generation
+	assert.equal(consoleOutput, "Success: The private key matches the address", "IOTA CLI Test 6 Failed");
 	
 	log("CLI Tests Passed\n\nAll Tests Passed");
 	}catch(err){
