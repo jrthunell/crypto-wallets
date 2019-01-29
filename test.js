@@ -108,7 +108,7 @@ async function runTests(){
 	assert(!cw.verifyTezosPrivateKey("edskRpkJCkzszTYKu3pkmwHHLkhqGDziHr2Vn5kQYgWTjuT3upQ9fFUjx573SLHZZxn4P6NthsJy9ZJJTmSN1nTG9V7wEKBBkk",
 		"tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82"), "XTZ Verify Test 3 Failed"); // wrong private key
 	assert(!cw.verifyTezosPrivateKey("foobarbaz", "blahblahblah"), "XTZ Verify Test 4 Failed"); // random garbage
-	console.log("XTZ Tests Passed\n");
+	console.log("XTZ Tests Passed");
 	
 	
 	// IOTA Tests
@@ -128,6 +128,7 @@ async function runTests(){
 	console.log("IOTA Tests Passed");
 
 	
+	console.log(); // print blank line
 	/**
 	CLI Tests
 	**/
