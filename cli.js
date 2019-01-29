@@ -75,7 +75,6 @@ verify <currency> <privateKey> <address>:
 						var fs = require('fs');
 						var rows = [Object.keys(wallets[0])];
 						wallets = wallets.map(e=>Object.values(e));
-						console.log(wallets);
 						rows = rows.concat(wallets);
 						let csvContent = rows.map(e=>e.join(",")).join("\n");
 						
