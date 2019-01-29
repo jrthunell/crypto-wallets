@@ -1,8 +1,9 @@
 
+
 # crypto-wallets
 Javascript/Node library for generating cryptocurrency addresses and private keys.
 
-### Supported Currencies:
+## Supported Currencies:
 - Bitcoin (BTC)
 - Bitcoin Cash (BCH)
 - Dogecoin (DOGE)
@@ -14,10 +15,10 @@ Javascript/Node library for generating cryptocurrency addresses and private keys
 - Peercoin (PPC)
 - Tezos (XTZ)
 
-### Usage
+## Usage
 Install crypto-wallets with `npm install --save crypto-wallets`
 
-##### Example: Generating Bitcoin Wallet
+#### Example: Generate Bitcoin Wallet
 ```
 var cw = require('crypto-wallets');
 var bitcoinWallet = cw.generateWallet('BTC');
@@ -25,7 +26,7 @@ console.log("Address: " + bitcoinWallet.address);
 console.log("Private Key: " + bitcoinWallet.privateKey);
 ```
 
-##### Example: Generating Ethereum Wallet
+#### Example: Generate Ethereum Wallet
 ```
 var cw = require('crypto-wallets');
 var ethWallet = cw.generateWallet('ETH');
@@ -33,7 +34,7 @@ console.log("Address: " + ethWallet.address);
 console.log("Private Key: " + ethWallet.privateKey);
 ```
 
-##### Example: Generating Monero Wallet
+#### Example: Generate Monero Wallet
 Note: Generating Monero (XMR) and IOTA (IOTA) wallets are both asynchronous and return a promise, unlike the other currencies.
 ```
 var cw = require('crypto-wallets');
@@ -43,12 +44,15 @@ cw.generateWallet('XMR').then(function(moneroWallet){
 });
 ```
 
-### CLI - Command Line Interface
+## CLI - Command Line Interface
 crypto-wallets can also be used in the command line.
 
-Commands:
-- `crypto-wallets generate <currency> [number]`
+### Commands:
+##  `generate <currency> [number] [--save <file>]`
 Generates and prints wallets in given currency. If [number] is not given, it defaults to 1.
+If the optional --save flag is provided, the generated wallets will be saved to the specified file in CSV format.
+
+#### Generate bitcoin wallet
 ```
 >crypto-wallets generate btc
 [ { currency: 'BTC',
@@ -56,6 +60,7 @@ Generates and prints wallets in given currency. If [number] is not given, it def
     address: '1HMt2J3dQE428krHQEmFRFNDv2DyGAaMfb' } ]
 ```
 
+#### Generate 3 dogecoin wallets
 ```
 >crypto-wallets generate doge 3
 [ { currency: 'DOGE',
@@ -69,7 +74,14 @@ Generates and prints wallets in given currency. If [number] is not given, it def
     address: 'DC7xVTob9XE6Soy6TjeWySinS3hG4cjR3F' } ]
 ```
 
-- `crypto-wallets verify <currency> <privateKey> <address>`
+#### Generate 100 monero wallets and save them to 'xmrWallets.csv'
+```
+>crypto-wallets generate xmr 100 --save xmrWallets.csv
+Successfully saved to file: xmrWallets.csv
+```
+
+
+## `verify <currency> <privateKey> <address>`
 Checks if the given private key controls the given address.
 ```
 >crypto-wallets verify doge QWgiPqSPNXTtTt32hffy8C1uvHT4BJcbo78TSJcEmvf6AyhE85L3 DJnvD1NxRjgmXKGbCR98QEneFYcGGmnquc
@@ -81,7 +93,7 @@ Success: The private key matches the address
 Failure: The private key does not match the address
 ```
 
-### Security
+## Security
 This library uses other third party libraries to generate the cryptocurrency addresses. So this library is secure if you trust the other libraries.
 
 The libraries used are:
