@@ -238,7 +238,7 @@ module.exports = {
 	verifyMoneroPrivateKey: async function(privateKey, address){
 		try{
 			var myMonero = await this._initMonero();
-			var wallet = myMonero.seed_and_keys_from_mnemonic(privateKey, 0);
+			var wallet = myMonero.address_and_keys_from_seed(privateKey, 0);
 			return wallet.address_string == address;
 		}catch(err){return false;}
 	},

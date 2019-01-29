@@ -58,26 +58,6 @@ async function runTests(){
 	assert(!cw.verifyDogecoinPrivateKey("foobarbaz", "blahblahblah"), "DOGE Verify Test 4 Failed"); // random garbage
 	console.log("DOGE Tests Passed");
 	
-	// IOTA Tests
-	for(var i = 0; i < NUM_TESTS; i++){
-		var wallet = await cw.generateWallet("IOTA");
-		assert(cw.verifyIOTAPrivateKey(wallet.privateKey, wallet.address), "IOTA Test Failed");
-	}
-	assert(await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
-			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 1 Failed"); // correct
-	assert(!await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
-			"APAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 2 Failed"); // wrong address
-	assert(!await cw.verifyIOTAPrivateKey("AVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
-			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 3 Failed"); // wrong private key
-	assert(await cw.verifyIOTAPrivateKey("N9ZASFSEDLVWRWBISHRKFAQFY9CVTD9ZELFAICGROOXWQYKFXJGKWYIAZZODALIDGRGUFTZCSXQBPBSPE",
-			"G9JHIDMJGUIIAENFSYKKGZMBDOADIW9UNAATVPVNGWFPIEPQITVSWXJJTDRPHTCJWUYERMGLVBOHYOXOCTDYYOEXPB"), "IOTA Verify Test 4 Failed"); // security level 1
-	assert(await cw.verifyIOTAPrivateKey("DAQ9JZZLIOTAMWKRBPQYEPXVPMMGZLBAYDYNOMPUPRSEKTBTBJRE9WWNCZUIGYLQDLYOFHXAZCTHRDYSY",
-			"XEP9KATHNKTIVNTRW9OIJDPFV9BWEWFHNUHBVCVTELJTDPBDHYBOMZXDDTF9PNVLVDFAQLQRIGKYNZHBCYYTMUPHU9"), "IOTA Verify Test 5 Failed"); // 4th address in seed generation
-	assert(await cw.verifyIOTAPrivateKey("WLYYH9GEA9KONPABRAEZUNJPCYSQKAWUQWSGTCJ9FHMVVVYFJZSLRGYCWPYN9XKIXGXIRUBFWVZNVVDHU",
-			"F9WZPZMRPHJCMETIMGHCTTOVPLQGHXAYHPJB9NU9TNRSMYJTYKHREER9DLVEML9QOCGCKUEIYBUQGDDHXFWJRDJTRY"), "IOTA Verify Test 6 Failed"); // security level 3 and 5th address in seed generation
-	assert(!await cw.verifyIOTAPrivateKey("foobarbaz", "blahblahblah"), "IOTA Verify Test 4 Failed"); // random garbage
-	console.log("IOTA Tests Passed");
-
 
 	// NMC Tests
 	for(var i = 0; i < NUM_TESTS; i++){
@@ -107,12 +87,12 @@ async function runTests(){
 		var wallet = await cw.generateWallet("XMR");
 		assert(cw.verifyMoneroPrivateKey(wallet.privateKey, wallet.address), "XMR Test Failed");
 	}
-	assert(await cw.verifyMoneroPrivateKey("mowing skydive karate gleeful ethics jaws amaze boat nabbing foggy owner asleep mayor whole jukebox bunch aside zero injury rotate yawning juicy annoyed batch gleeful",
-			"4AAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 1 Failed"); // correct
-	assert(!await cw.verifyMoneroPrivateKey("mowing skydive karate gleeful ethics jaws amaze boat nabbing foggy owner asleep mayor whole jukebox bunch aside zero injury rotate yawning juicy annoyed batch gleeful",
-			"4BAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 2 Failed"); // wrong address
-	assert(!await cw.verifyMoneroPrivateKey("mayor skydive karate gleeful ethics jaws amaze boat nabbing foggy owner asleep mayor whole jukebox bunch aside zero injury rotate yawning juicy annoyed batch gleeful",
-			"4AAjUAGZugkLhCFqV1Hfwr7hLicQjkcHZd4gdz3Eo6oqHqKZw3FBhvW5U6e5ndD9GLG4P8u2tgF5th9QFpy8kU3q3M3z54E"), "XMR Verify Test 3 Failed"); // wrong private key
+	assert(await cw.verifyMoneroPrivateKey("fa2bfe0a6a70296130cbc01c9da95fcaa95d9401bcd6778ab6c04171a03bcc0a",
+			"4A91f2Jeyi87Cq46sLR9b7FAa3ponkQ93QqvbfXRXnWz7mxzahbFpZG1vCcVx9nEbGXvGq9WnTNpB9BwbggaqBnB4acUDfE"), "XMR Verify Test 1 Failed"); // correct
+	assert(!await cw.verifyMoneroPrivateKey("fa2bfe0a6a70296130cbc01c9da95fcaa95d9401bcd6778ab6c04171a03bcc0a",
+			"4B91f2Jeyi87Cq46sLR9b7FAa3ponkQ93QqvbfXRXnWz7mxzahbFpZG1vCcVx9nEbGXvGq9WnTNpB9BwbggaqBnB4acUDfE"), "XMR Verify Test 2 Failed"); // wrong address
+	assert(!await cw.verifyMoneroPrivateKey("ea2bfe0a6a70296130cbc01c9da95fcaa95d9401bcd6778ab6c04171a03bcc0a",
+			"4A91f2Jeyi87Cq46sLR9b7FAa3ponkQ93QqvbfXRXnWz7mxzahbFpZG1vCcVx9nEbGXvGq9WnTNpB9BwbggaqBnB4acUDfE"), "XMR Verify Test 3 Failed"); // wrong private key
 	assert(!await cw.verifyMoneroPrivateKey("foobarbaz", "blahblahblah"), "XMR Verify Test 4 Failed"); // random garbage
 	console.log("XMR Tests Passed");
 			
@@ -129,6 +109,25 @@ async function runTests(){
 		"tz1Tgc7i5cVC2qmc8Tc1iMZifC3jnQwDNP82"), "XTZ Verify Test 3 Failed"); // wrong private key
 	assert(!cw.verifyTezosPrivateKey("foobarbaz", "blahblahblah"), "XTZ Verify Test 4 Failed"); // random garbage
 	console.log("XTZ Tests Passed\n");
+	
+	
+	// IOTA Tests
+	for(var i = 0; i < NUM_TESTS; i++){
+		var wallet = await cw.generateWallet("IOTA");
+		assert(cw.verifyIOTAPrivateKey(wallet.privateKey, wallet.address), "IOTA Test Failed");
+	}
+	assert(await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 1 Failed"); // correct
+	assert(!await cw.verifyIOTAPrivateKey("OVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"APAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 2 Failed"); // wrong address
+	assert(!await cw.verifyIOTAPrivateKey("AVXGOLZEVAPVZHJETN9WWRIPYHMQBLONCXUMGJECBRJQFZNSBRNRYZK9UXSCBJNELJVYOZG9VACLDHORM",
+			"VPAFE9UQ9VRIVWRQRNGNLAGJRRDZVUYKQJAKWOPJTSOWSZGNSCWLDVJ9T9PRIHZPGLAEHIVTGYZEZLUGWIJMCRDSKC"), "IOTA Verify Test 3 Failed"); // wrong private key
+	assert(await cw.verifyIOTAPrivateKey("WLYYH9GEA9KONPABRAEZUNJPCYSQKAWUQWSGTCJ9FHMVVVYFJZSLRGYCWPYN9XKIXGXIRUBFWVZNVVDHU",
+			"F9WZPZMRPHJCMETIMGHCTTOVPLQGHXAYHPJB9NU9TNRSMYJTYKHREER9DLVEML9QOCGCKUEIYBUQGDDHXFWJRDJTRY"), "IOTA Verify Test 6 Failed"); // security level 3 and 5th address in seed generation
+	assert(!await cw.verifyIOTAPrivateKey("foobarbaz", "blahblahblah"), "IOTA Verify Test 4 Failed"); // random garbage
+	console.log("IOTA Tests Passed");
+
+	
 	/**
 	CLI Tests
 	**/
@@ -268,14 +267,14 @@ async function runTests(){
 	cli.parseArgs(['verify', 'xtz', 'foobarbaz', 'blahblahblah']) // random garbage
 	assert.equal(consoleOutput, "Failure: The private key does not match the address");
 	
-	await cli.parseArgs(['verify', 'xmr', 'excess yacht cogs avoid shyness plotting mews nocturnal value vigilant tweezers oilfield girth dexterity does axle girth mime acidic rarest aunt juggled point python vigilant',
-		'45MuEyzAuoR8LMt8NwQCeViMA8T6WpZz24Txa14GwUVhdkC67eTyx9x5Yk2UouW9saevJ727PDCNCMiPjPn13XcwTDsECnA']) // matches
+	await cli.parseArgs(['verify', 'xmr', '9ae23450868c5680f672f1224a425ee91e84f128fedaa40662d9987d87f9ae07',
+		'42FQ15jPQvQJ7aFcmXrs55VGr6EzbXYxf3AKiA4PvvCVB4DBbJynhKaXxRnWy1hVJKX5DMiWrkDMZiwBLVANeQ2LENWNqJw']) // matches
 	assert.equal(consoleOutput, "Success: The private key matches the address", "Monero CLI Test 1 Failed");
-	await cli.parseArgs(['verify', 'xmr', 'excess yacht cogs avoid shyness plotting mews nocturnal value vigilant tweezers oilfield girth dexterity does axle girth mime acidic rarest aunt juggled point python vigilant',
-		'45MUEyzAuoR8LMt8NwQCeViMA8T6WpZz24Txa14GwUVhdkC67eTyx9x5Yk2UouW9saevJ727PDCNCMiPjPn13XcwTDsECnA']) // address doesn't match
+	await cli.parseArgs(['verify', 'xmr', '9ae23450868c5680f672f1224a425ee91e84f128fedaa40662d9987d87f9ae07',
+		'41FQ15jPQvQJ7aFcmXrs55VGr6EzbXYxf3AKiA4PvvCVB4DBbJynhKaXxRnWy1hVJKX5DMiWrkDMZiwBLVANeQ2LENWNqJw']) // address doesn't match
 	assert.equal(consoleOutput, "Failure: The private key does not match the address", "Monero CLI Test 2 Failed");
-	await cli.parseArgs(['verify', 'xmr', 'acidic yacht cogs avoid shyness plotting mews nocturnal value vigilant tweezers oilfield girth dexterity does axle girth mime acidic rarest aunt juggled point python vigilant',
-		'45MuEyzAuoR8LMt8NwQCeViMA8T6WpZz24Txa14GwUVhdkC67eTyx9x5Yk2UouW9saevJ727PDCNCMiPjPn13XcwTDsECnA']) // private key doesn't match
+	await cli.parseArgs(['verify', 'xmr', '9be23450868c5680f672f1224a425ee91e84f128fedaa40662d9987d87f9ae07',
+		'42FQ15jPQvQJ7aFcmXrs55VGr6EzbXYxf3AKiA4PvvCVB4DBbJynhKaXxRnWy1hVJKX5DMiWrkDMZiwBLVANeQ2LENWNqJw']) // private key doesn't match
 	assert.equal(consoleOutput, "Failure: The private key does not match the address", "Monero CLI Test 3 Failed");
 
 	
