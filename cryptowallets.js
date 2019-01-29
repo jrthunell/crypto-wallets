@@ -37,7 +37,7 @@ module.exports = {
 			case "XTZ":
 				return this.generateTezosWallet();
 			default: 
-				console.log("Unsupported currency: " + currency);
+				throw ("Unsupported currency: " + currency);
 		}
 	},
 	
@@ -67,7 +67,7 @@ module.exports = {
 			case "XTZ":
 				return this.verifyTezosPrivateKey(privateKey, address);
 			default: 
-				console.log("Unsupported currency: " + currency);
+				throw ("Unsupported currency: " + currency);
 		}
 	},
 
@@ -202,7 +202,7 @@ module.exports = {
 	},
 	
 	/**
-	*	Returns a promise for an object with properties {currency, privateKey, address}
+	*	Returns a promise for an object with properties {currency, privateKey, address, privateViewKey, mnemonic}
 	*/
 	generateMoneroWallet: async function (){
 		var wallet;
@@ -217,7 +217,13 @@ module.exports = {
 		
 		var myMonero = await this._initMonero();
 		var res = myMonero.newly_created_wallet("english", 0);
-		wallet = {currency: "XMR", privateKey: res.mnemonic_string, address: res.address_string};
+		wallet = {
+			currency: "XMR", 
+			privateKey: res.sec_spendKey_string, 
+			address: res.address_string, 
+			privateViewKey: res.sec_viewKey_string, 
+			mnemonic: res.mnemonic_string
+		};
 				
 		// unmute mymonero
 		console.log = log;
