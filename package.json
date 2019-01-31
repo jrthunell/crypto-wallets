@@ -1,6 +1,6 @@
 {
   "name": "crypto-wallets",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Simple cryptocurrency wallet generator for javascript",
   "main": "cryptowallets.js",
   "scripts": {
