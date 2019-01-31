@@ -40,7 +40,7 @@ generate <currency> [number] [--save <file>]:
     If no [number] is provided, one wallet will be generated.
 	If the --save flag is provided, the results will be saved to the given file in CSV format.
     Supported currencies:
-    BTC, BCH, ETH, DOGE, LTC, NMC, PPC, XMR
+    BTC, BCH, DOGE, ETH, IOTA, LTC, NMC, PPC, XMR, XTZ
 		
 verify <currency> <privateKey> <address>: 
     Verifies that the given privateKey corresponds to the given address in the given currency.`,
